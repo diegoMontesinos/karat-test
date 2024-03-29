@@ -1,21 +1,22 @@
 import express, { Request, Response } from 'express';
-import Stripe from 'stripe';
+// import Stripe from 'stripe';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
 dotenv.config();
 
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
-const STRIPE_CARD_ID = process.env.STRIPE_CARD_ID;
+// const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+// const STRIPE_CARD_ID = process.env.STRIPE_CARD_ID;
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-const stripe = new Stripe(STRIPE_SECRET_KEY);
+// const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 app.use(express.json());
 app.use(cors());
 
-app.get('/api/transactions', async (req: Request, res: Response) => {
+app.get('/api/transactions', async (_: Request, res: Response) => {
+  console.log(123);
   // try {
   //   const transactions = await stripe.issuing.transactions.list({
   //     card: 'your_card_id',

@@ -1,17 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "es2021",
+    "lib": ["es2021"],
+    "allowSyntheticDefaultImports": true,
     "useDefineForClassFields": true,
-    "lib": ["ES2020"],
+    "resolveJsonModule": true,
     "module": "commonjs",
+    "baseUrl": "src",
+    "outDir": "dist",
     "skipLibCheck": true,
+    "allowJs": true,
+    "noEmit": false,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "**/*.ts", "**/*.tsx"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
