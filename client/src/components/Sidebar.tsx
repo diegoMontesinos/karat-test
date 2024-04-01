@@ -18,6 +18,7 @@ const Sidebar: React.FC = () => (
         whiteSpace: 'nowrap',
         width: 240,
         boxSizing: 'border-box',
+        backgroundColor: '#21274a',
       },
     }}
   >

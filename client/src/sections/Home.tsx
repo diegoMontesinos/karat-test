@@ -1,5 +1,8 @@
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+
+import MetricsCard from '../components/MetricsCard';
 
 const Home: React.FC = () => (
   <Box
@@ -23,7 +26,23 @@ const Home: React.FC = () => (
         flexDirection: 'row',
         mt: 4,
       }}
-    ></Box>
+    >
+      <Grid container columnSpacing={4}>
+        <Grid container item xs={6} rowSpacing={4}>
+          <Grid item xs={12} display="flex">
+            <MetricsCard />
+          </Grid>
+
+          <Grid item xs={12} display="flex">
+            <MetricsCard />
+          </Grid>
+        </Grid>
+
+        <Grid item xs={6} display="flex">
+          <MetricsCard />
+        </Grid>
+      </Grid>
+    </Box>
   </Box>
 );
 
