@@ -40,6 +40,7 @@ const Sidebar: React.FC = () => (
       component="nav"
       sx={{
         px: 2,
+        mt: 3,
       }}
     >
       <ListItemNavLink to="/" icon={<HomeIcon />} label="Home" />

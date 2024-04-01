@@ -11,8 +11,10 @@ const RootLayout: React.FC = () => (
       component="main"
       sx={{
         flexGrow: 1,
+        display: 'flex',
         height: '100vh',
         overflow: 'auto',
+        backgroundColor: 'background.default',
       }}
     >
       <Outlet />
