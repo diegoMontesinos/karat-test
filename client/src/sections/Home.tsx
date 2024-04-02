@@ -2,6 +2,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
+import AnalysisCard from '../components/AnalysisCard';
+import CardHistoryCard from '../components/CardHistoryCard';
 import MetricsCard from '../components/MetricsCard';
 
 const Home: React.FC = () => (
@@ -34,12 +36,12 @@ const Home: React.FC = () => (
           </Grid>
 
           <Grid item xs={12} display="flex">
-            <MetricsCard />
+            <AnalysisCard />
           </Grid>
         </Grid>
 
         <Grid item xs={6} display="flex">
-          <MetricsCard />
+          <CardHistoryCard />
         </Grid>
       </Grid>
     </Box>
