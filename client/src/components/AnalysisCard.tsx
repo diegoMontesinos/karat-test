@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
-import { ResponsiveContainer, PieChart, Pie } from 'recharts';
 
 import { Card, CardContent, CardHeader } from './shared/Card';
+
+import CategoriesChart from './CategoriesChart';
 
 const formatCategoryName = (category: string) =>
   category
@@ -42,11 +43,7 @@ const AnalysisCard: React.FC<{
             <Skeleton variant="circular" width={300} height={300} />
           </Box>
         ) : (
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie data={chartData} dataKey="value" />
-            </PieChart>
-          </ResponsiveContainer>
+          <CategoriesChart data={chartData} />
         )}
       </CardContent>
     </Card>
