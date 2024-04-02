@@ -7,8 +7,6 @@ import Typography from '@mui/material/Typography';
 
 import { Card, CardContent, CardHeader } from './shared/Card';
 
-import { useGetMetricsQuery } from '../api';
-
 const MetricsDataItem: React.FC<{
   value: number;
   title: ReactNode;
@@ -43,39 +41,41 @@ const MetricsDataItem: React.FC<{
   </Box>
 );
 
-const MetricsCard: React.FC = () => {
-  const { data, isLoading } = useGetMetricsQuery();
-
-  return (
-    <Card elevation={0}>
-      <CardHeader title="Metrics" />
-      <CardContent>
-        <MetricsDataItem
-          value={data ? data.sum : 0}
-          title={
-            <>
-              Sum of
-              <br />
-              all transactions
-            </>
-          }
-          isLoading={isLoading}
-        />
-        <Divider orientation="vertical" variant="middle" flexItem />
-        <MetricsDataItem
-          value={data ? data.average : 0}
-          title={
-            <>
-              Average of
-              <br />
-              all transactions
-            </>
-          }
-          isLoading={isLoading}
-        />
-      </CardContent>
-    </Card>
-  );
-};
+const MetricsCard: React.FC<{
+  data?: {
+    sum: number;
+    average: number;
+  };
+  isLoading: boolean;
+}> = ({ data, isLoading }) => (
+  <Card elevation={0}>
+    <CardHeader title="Metrics" />
+    <CardContent>
+      <MetricsDataItem
+        value={data ? data.sum : 0}
+        title={
+          <>
+            Sum of
+            <br />
+            all transactions
+          </>
+        }
+        isLoading={isLoading}
+      />
+      <Divider orientation="vertical" variant="middle" flexItem />
+      <MetricsDataItem
+        value={data ? data.average : 0}
+        title={
+          <>
+            Average of
+            <br />
+            all transactions
+          </>
+        }
+        isLoading={isLoading}
+      />
+    </CardContent>
+  </Card>
+);
 
 export default MetricsCard;

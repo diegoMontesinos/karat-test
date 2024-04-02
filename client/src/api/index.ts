@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import type { MetricsResponse } from '../types';
+import type { TransactionsDetails } from '../types';
 
 export const transactionsApi = createApi({
   reducerPath: 'transactionsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/' }),
   endpoints: (builder) => ({
-    getMetrics: builder.query<MetricsResponse, void>({
-      query: () => 'metrics',
+    getDetails: builder.query<TransactionsDetails, void>({
+      query: () => 'transactions_details',
     }),
   }),
 });
 
-export const { useGetMetricsQuery } = transactionsApi;
+export const { useGetDetailsQuery } = transactionsApi;

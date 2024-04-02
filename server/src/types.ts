@@ -1,6 +1,9 @@
-export type MetricsResponse =
-  | {
-      sum: number;
-      average: number;
-    }
+export type TransactionsDetails = {
+  sum: number;
+  average: number;
+  categories: Record<string, number>;
+};
+
+export type TransactionsDetailsResponse =
+  | TransactionsDetails
   | { error: string };
