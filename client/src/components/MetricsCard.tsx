@@ -1,12 +1,11 @@
 import { ReactNode } from 'react';
 
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
+
+import { Card, CardContent, CardHeader } from './shared/Card';
 
 import { useGetMetricsQuery } from '../api';
 
@@ -23,12 +22,16 @@ const MetricsDataItem: React.FC<{
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
+      gap: 1,
     }}
   >
     {isLoading ? (
-      <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+      <Skeleton variant="text" width={210} sx={{ fontSize: '2.125rem' }} />
     ) : (
-      <Typography variant="h4">
+      <Typography
+        variant="h4"
+        sx={{ color: value < 0 ? 'error.main' : 'primary.main' }}
+      >
         $
         {value.toLocaleString('en-US', {
           minimumFractionDigits: 2,
@@ -36,7 +39,7 @@ const MetricsDataItem: React.FC<{
         })}
       </Typography>
     )}
-    <Typography variant="h6">{title}</Typography>
+    <Typography variant="subtitle2">{title}</Typography>
   </Box>
 );
 
@@ -44,26 +47,9 @@ const MetricsCard: React.FC = () => {
   const { data, isLoading } = useGetMetricsQuery();
 
   return (
-    <Card
-      elevation={0}
-      sx={{ flex: 1, display: 'flex', flexDirection: 'column', p: 2 }}
-    >
-      <CardHeader
-        title="Metrics"
-        titleTypographyProps={{
-          variant: 'subtitle1',
-          sx: {
-            fontWeight: 600,
-            pb: 2,
-          },
-        }}
-      />
-      <CardContent
-        sx={{
-          flex: 1,
-          display: 'flex',
-        }}
-      >
+    <Card elevation={0}>
+      <CardHeader title="Metrics" />
+      <CardContent>
         <MetricsDataItem
           value={data ? data.sum : 0}
           title={
