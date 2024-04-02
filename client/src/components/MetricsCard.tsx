@@ -27,7 +27,7 @@ const MetricsDataItem: React.FC<{
       <Skeleton variant="text" width={210} sx={{ fontSize: '2.125rem' }} />
     ) : (
       <Typography
-        variant="h4"
+        variant="h5"
         sx={{ color: value < 0 ? 'error.main' : 'primary.main' }}
       >
         $

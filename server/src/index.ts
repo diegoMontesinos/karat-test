@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import Stripe from 'stripe';
+import NodeCache from 'node-cache';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
@@ -15,6 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 const stripe = new Stripe(STRIPE_SECRET_KEY);
+const cache = new NodeCache({ stdTTL: 15 * 60 });
 
 app.use(express.json());
 app.use(cors());
@@ -22,8 +24,15 @@ app.use(cors());
 app.get(
   '/transactions_details',
   async (_: Request, res: Response<TransactionsDetailsResponse>) => {
+    if (cache.has('transactions_details')) {
+      res.status(200).json(cache.get('transactions_details'));
+      return;
+    }
+
     try {
       const details = await getTransactionsDetails(stripe, STRIPE_CARD_ID);
+
+      cache.set('transactions_details', details);
       res.status(200).json(details);
     } catch (error) {
       if (error instanceof Error) {
@@ -35,28 +44,28 @@ app.get(
   }
 );
 
-app.get('/api/transactions', async (_: Request, res: Response) => {
-  try {
-    await stripe.issuing.authorizations.list({
-      card: STRIPE_CARD_ID,
-      limit: 3,
-    });
+// app.get('/api/transactions', async (_: Request, res: Response) => {
+//   try {
+//     await stripe.issuing.authorizations.list({
+//       card: STRIPE_CARD_ID,
+//       limit: 3,
+//     });
 
-    const transactions = await stripe.issuing.transactions.list({
-      card: STRIPE_CARD_ID,
-    });
+//     const transactions = await stripe.issuing.transactions.list({
+//       card: STRIPE_CARD_ID,
+//     });
 
-    console.log(transactions.has_more, transactions.data.length);
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: 'An unexpected error occurred' });
-    }
-  }
+//     console.log(transactions.has_more, transactions.data.length);
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       res.status(500).json({ error: error.message });
+//     } else {
+//       res.status(500).json({ error: 'An unexpected error occurred' });
+//     }
+//   }
 
-  res.json({ test: 1123 });
-});
+//   res.json({ test: 1123 });
+// });
 
 app.listen(PORT, () => {
   console.log(`Server running at port: ${PORT}`);

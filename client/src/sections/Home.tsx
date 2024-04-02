@@ -41,7 +41,7 @@ const Home: React.FC = () => {
             </Grid>
 
             <Grid item xs={12} display="flex">
-              <AnalysisCard />
+              <AnalysisCard data={data} isLoading={isLoading} />
             </Grid>
           </Grid>
 
