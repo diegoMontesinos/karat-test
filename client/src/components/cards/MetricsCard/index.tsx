@@ -5,9 +5,9 @@ import Divider from '@mui/material/Divider';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 
-import { Card, CardContent, CardHeader } from './shared/Card';
+import { Card, CardContent, CardHeader } from '../../shared/Card';
 
-import { formatMoney } from '../utils';
+import { formatMoney } from '../../../utils';
 
 const MetricsDataItem: React.FC<{
   value: number;

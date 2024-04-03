@@ -1,7 +1,7 @@
 import { Provider as StoreProvider } from 'react-redux';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import RootLayout from './RootLayout';
 

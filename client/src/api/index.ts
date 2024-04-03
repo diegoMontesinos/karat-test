@@ -6,9 +6,11 @@ import type {
   TransactionsDetails,
 } from '../types';
 
+const API_HOST = import.meta.env.VITE_API_HOST;
+
 export const transactionsApi = createApi({
   reducerPath: 'transactionsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_HOST }),
   endpoints: (builder) => ({
     getDetails: builder.query<TransactionsDetails, void>({
       query: () => 'transactions-details',

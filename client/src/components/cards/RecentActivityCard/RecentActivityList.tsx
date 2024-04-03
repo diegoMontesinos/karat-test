@@ -7,13 +7,11 @@ import Typography from '@mui/material/Typography';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-import { CardActivity } from '../types';
+import { CardActivity } from '../../../types';
 
-import { formatActivityDate, formatMoney } from '../utils';
+import { formatActivityDate, formatMoney } from '../../../utils';
 
-const CardActivityFixedList: React.FC<{ data: CardActivity[] }> = ({
-  data,
-}) => (
+const RecentActivityList: React.FC<{ data: CardActivity[] }> = ({ data }) => (
   <List
     disablePadding
     dense
@@ -53,6 +51,11 @@ const CardActivityFixedList: React.FC<{ data: CardActivity[] }> = ({
         </ListItemIcon>
         <ListItemText
           primary={merchant_data.name}
+          primaryTypographyProps={{
+            sx: {
+              fontWeight: 600,
+            },
+          }}
           secondary={formatActivityDate(created * 1000)}
         />
       </ListItem>
@@ -60,4 +63,4 @@ const CardActivityFixedList: React.FC<{ data: CardActivity[] }> = ({
   </List>
 );
 
-export default CardActivityFixedList;
+export default RecentActivityList;

@@ -5,7 +5,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Skeleton from '@mui/material/Skeleton';
 
-const CardActivitySkeletonList: React.FC = () => (
+const RecentActivitySkeleton: React.FC = () => (
   <List
     disablePadding
     dense
@@ -64,4 +64,4 @@ const CardActivitySkeletonList: React.FC = () => (
   </List>
 );
 
-export default CardActivitySkeletonList;
+export default RecentActivitySkeleton;

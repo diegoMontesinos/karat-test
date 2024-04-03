@@ -2,11 +2,11 @@ import { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 
-import { Card, CardContent, CardHeader } from './shared/Card';
+import { Card, CardContent, CardHeader } from '../../shared/Card';
 
 import CategoriesChart from './CategoriesChart';
 
-import { formatCategoryName } from '../utils';
+import { formatCategoryName } from '../../../utils';
 
 const AnalysisCard: React.FC<{
   data?: { categories: Record<string, number> };

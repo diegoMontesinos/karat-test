@@ -2,11 +2,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import AnalysisCard from '../components/AnalysisCard';
-import CardHistoryCard from '../components/CardActivityCard';
-import MetricsCard from '../components/MetricsCard';
+import AnalysisCard from '../../components/cards/AnalysisCard';
+import MetricsCard from '../../components/cards/MetricsCard';
+import RecentActivityCard from '../../components/cards/RecentActivityCard';
 
-import { useGetDetailsQuery } from '../api';
+import { useGetDetailsQuery } from '../../api';
 
 const Home: React.FC = () => {
   const { data, isLoading } = useGetDetailsQuery();
@@ -46,7 +46,7 @@ const Home: React.FC = () => {
           </Grid>
 
           <Grid item xs={6} display="flex">
-            <CardHistoryCard />
+            <RecentActivityCard />
           </Grid>
         </Grid>
       </Box>
