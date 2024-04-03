@@ -5,6 +5,22 @@ import { PieSectorDataItem } from 'recharts/types/polar/Pie';
 
 const RADIAN = Math.PI / 180;
 
+// Based on Spectral
+// https://github.com/gka/chroma.js/blob/cd1b3c0926c7a85cbdc3b1453b3a94006de91a92/src/colors/colorbrewer.js#L42
+const COLORS = [
+  '#9e0142',
+  '#d53e4f',
+  '#f46d43',
+  '#fdae61',
+  '#fee08b',
+  '#FC3908',
+  '#e6f598',
+  '#abdda4',
+  '#66c2a5',
+  '#3288bd',
+  '#5e4fa2',
+];
+
 const renderActiveShape = ({
   cx = 0,
   cy = 0,
@@ -29,7 +45,18 @@ const renderActiveShape = ({
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+      <text
+        x={cx}
+        y={cy}
+        dy={8}
+        textAnchor="middle"
+        fill={fill}
+        style={{
+          fontWeight: 500,
+          fontSize: '0.975rem',
+          letterSpacing: 0,
+        }}
+      >
         {name}
       </text>
       <Sector
@@ -78,7 +105,7 @@ const CategoriesChart: React.FC<{
   const [activeIndex, setActiveIndex] = useState(0);
 
   const palette = useMemo(
-    () => chroma.scale('Spectral').colors(data.length),
+    () => chroma.scale(COLORS).colors(data.length),
     [data.length]
   );
 
@@ -92,7 +119,7 @@ const CategoriesChart: React.FC<{
       <PieChart>
         <Pie
           data={data}
-          innerRadius={140}
+          innerRadius={146}
           outerRadius={180}
           dataKey="value"
           paddingAngle={0.1}

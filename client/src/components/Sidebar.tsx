@@ -46,9 +46,9 @@ const Sidebar: React.FC = () => (
     >
       <ListItemNavLink to="/" icon={<HomeIcon />} label="Home" />
       <ListItemNavLink
-        to="/card-history"
+        to="/card-activity"
         icon={<ReceiptIcon />}
-        label="Card History"
+        label="Card Activity"
       />
     </List>
   </Drawer>

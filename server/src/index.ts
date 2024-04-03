@@ -6,7 +6,7 @@ import cors from 'cors';
 
 import { getTransactionsDetails } from './transactions';
 
-import { TransactionsDetailsResponse } from './types';
+import { CardActivityResponse, TransactionsDetailsResponse } from './types';
 
 dotenv.config();
 
@@ -22,17 +22,17 @@ app.use(express.json());
 app.use(cors());
 
 app.get(
-  '/transactions_details',
+  '/transactions-details',
   async (_: Request, res: Response<TransactionsDetailsResponse>) => {
-    if (cache.has('transactions_details')) {
-      res.status(200).json(cache.get('transactions_details'));
+    if (cache.has('transaction-details')) {
+      res.status(200).json(cache.get('transaction-details'));
       return;
     }
 
     try {
       const details = await getTransactionsDetails(stripe, STRIPE_CARD_ID);
 
-      cache.set('transactions_details', details);
+      cache.set('transaction-details', details);
       res.status(200).json(details);
     } catch (error) {
       if (error instanceof Error) {
@@ -44,28 +44,32 @@ app.get(
   }
 );
 
-// app.get('/api/transactions', async (_: Request, res: Response) => {
-//   try {
-//     await stripe.issuing.authorizations.list({
-//       card: STRIPE_CARD_ID,
-//       limit: 3,
-//     });
+app.get(
+  '/card-activity',
+  async (req: Request, res: Response<CardActivityResponse>) => {
+    try {
+      const { limit, starting_after } = req.query as {
+        limit?: string;
+        starting_after?: string;
+      };
 
-//     const transactions = await stripe.issuing.transactions.list({
-//       card: STRIPE_CARD_ID,
-//     });
+      const authorizations = await stripe.issuing.authorizations.list({
+        card: STRIPE_CARD_ID,
+        status: 'closed',
+        limit: limit && !isNaN(parseInt(limit)) ? parseInt(limit) : 10,
+        starting_after,
+      });
 
-//     console.log(transactions.has_more, transactions.data.length);
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       res.status(500).json({ error: error.message });
-//     } else {
-//       res.status(500).json({ error: 'An unexpected error occurred' });
-//     }
-//   }
-
-//   res.json({ test: 1123 });
-// });
+      res.json(authorizations);
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: 'An unexpected error occurred' });
+      }
+    }
+  }
+);
 
 app.listen(PORT, () => {
   console.log(`Server running at port: ${PORT}`);

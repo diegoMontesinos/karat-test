@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import AnalysisCard from '../components/AnalysisCard';
-import CardHistoryCard from '../components/CardHistoryCard';
+import CardHistoryCard from '../components/CardActivityCard';
 import MetricsCard from '../components/MetricsCard';
 
 import { useGetDetailsQuery } from '../api';

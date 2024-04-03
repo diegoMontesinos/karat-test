@@ -13,7 +13,7 @@ const CardHistory: React.FC = () => (
     }}
   >
     <Typography variant="h4" sx={{ fontWeight: 600 }}>
-      Card History
+      Card Activity
     </Typography>
 
     <Box

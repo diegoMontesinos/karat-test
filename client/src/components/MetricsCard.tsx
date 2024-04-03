@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 
 import { Card, CardContent, CardHeader } from './shared/Card';
 
+import { formatMoney } from '../utils';
+
 const MetricsDataItem: React.FC<{
   value: number;
   title: ReactNode;
@@ -30,11 +32,7 @@ const MetricsDataItem: React.FC<{
         variant="h5"
         sx={{ color: value < 0 ? 'error.main' : 'primary.main' }}
       >
-        $
-        {value.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
+        {formatMoney(value)}
       </Typography>
     )}
     <Typography variant="subtitle2">{title}</Typography>

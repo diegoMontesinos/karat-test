@@ -6,11 +6,7 @@ import { Card, CardContent, CardHeader } from './shared/Card';
 
 import CategoriesChart from './CategoriesChart';
 
-const formatCategoryName = (category: string) =>
-  category
-    .split('_')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+import { formatCategoryName } from '../utils';
 
 const AnalysisCard: React.FC<{
   data?: { categories: Record<string, number> };

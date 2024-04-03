@@ -8,7 +8,6 @@ export const Card = styled(MuiCard)({
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
-  p: 2,
 });
 
 export const CardContent = styled(MuiCardContent)({
@@ -16,15 +15,23 @@ export const CardContent = styled(MuiCardContent)({
   display: 'flex',
 });
 
-export const CardHeader: React.FC<CardHeaderProps> = (props) => (
+export const CardHeader: React.FC<CardHeaderProps> = ({ sx, ...rest }) => (
   <MuiCardHeader
     titleTypographyProps={{
       variant: 'subtitle1',
       sx: {
         fontWeight: 600,
-        pb: 2,
       },
     }}
-    {...props}
+    subheaderTypographyProps={{
+      variant: 'body2',
+    }}
+    sx={{
+      '& .MuiCardHeader-action': {
+        margin: 0,
+      },
+      ...sx,
+    }}
+    {...rest}
   />
 );

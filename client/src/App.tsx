@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './RootLayout';
 
 import Home from './sections/Home';
-import CardHistory from './sections/CardHistory';
+import CardActivity from './sections/CardActivity';
 
 import { store } from './store';
 
@@ -44,8 +44,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'card-history',
-        element: <CardHistory />,
+        path: 'card-activity',
+        element: <CardActivity />,
       },
     ],
   },
