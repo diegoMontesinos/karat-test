@@ -12,27 +12,29 @@ dotenv.config();
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || '';
 const STRIPE_CARD_ID = process.env.STRIPE_CARD_ID || '';
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 const stripe = new Stripe(STRIPE_SECRET_KEY);
 const cache = new NodeCache({ stdTTL: 15 * 60 });
 
-app.use(express.json());
+const DETAILS_CACHE_KEY = 'transaction-details';
+
 app.use(cors());
 
 app.get(
   '/transactions-details',
   async (_: Request, res: Response<TransactionsDetailsResponse>) => {
-    if (cache.has('transaction-details')) {
-      res.status(200).json(cache.get('transaction-details'));
+    if (cache.has(DETAILS_CACHE_KEY)) {
+      res.status(200).json(cache.get(DETAILS_CACHE_KEY));
       return;
     }
 
     try {
       const details = await getTransactionsDetails(stripe, STRIPE_CARD_ID);
 
-      cache.set('transaction-details', details);
+      cache.set(DETAILS_CACHE_KEY, details);
       res.status(200).json(details);
     } catch (error) {
       if (error instanceof Error) {
@@ -68,6 +70,51 @@ app.get(
         res.status(500).json({ error: 'An unexpected error occurred' });
       }
     }
+  }
+);
+
+app.post(
+  '/stripe_webhook',
+  express.raw({ type: 'application/json' }),
+  (request: Request, response: Response) => {
+    const sig = request.headers['stripe-signature'];
+
+    if (!sig) {
+      response.status(400).json({ error: 'Webhook Error' });
+      return;
+    }
+
+    let event;
+
+    try {
+      event = stripe.webhooks.constructEvent(
+        request.body,
+        sig,
+        STRIPE_WEBHOOK_SECRET
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        response.status(400).json({ error: error.message });
+      } else {
+        response.status(400).json({ error: 'Webhook Error' });
+      }
+
+      return;
+    }
+
+    if (!event) {
+      response.status(400).json({ error: 'Webhook Error' });
+      return;
+    }
+
+    if (
+      event.type.startsWith('issuing_authorization') ||
+      event.type.startsWith('issuing_transaction')
+    ) {
+      cache.del(DETAILS_CACHE_KEY);
+    }
+
+    response.json({ received: true });
   }
 );
 
