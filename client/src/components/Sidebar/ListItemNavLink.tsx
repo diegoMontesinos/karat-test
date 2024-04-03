@@ -37,7 +37,7 @@ const ListItemNavLink: React.FC<ListItemNavLinkProps> = ({
     >
       <ListItemIcon
         sx={{
-          color: isActive ? 'grey.50' : 'grey.600',
+          color: 'grey.50',
           minWidth: 40,
         }}
       >
@@ -47,7 +47,7 @@ const ListItemNavLink: React.FC<ListItemNavLinkProps> = ({
         primary={label}
         primaryTypographyProps={{
           sx: {
-            color: isActive ? 'grey.50' : 'grey.600',
+            color: 'grey.50',
           },
           variant: 'subtitle1',
         }}

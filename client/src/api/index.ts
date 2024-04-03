@@ -16,10 +16,13 @@ export const transactionsApi = createApi({
       query: () => 'transactions-details',
     }),
     getCardActivity: builder.query<CardActivityResponse, CardActivityRequest>({
-      query: ({ limit, starting_after }) => {
+      query: (arg) => {
         const params = new URLSearchParams();
-        if (limit) params.set('limit', `${limit}`);
-        if (starting_after) params.set('starting_after', starting_after);
+        if (arg) {
+          const { limit, starting_after } = arg;
+          if (limit) params.set('limit', `${limit}`);
+          if (starting_after) params.set('starting_after', starting_after);
+        }
 
         return `card-activity?${params.toString()}`;
       },

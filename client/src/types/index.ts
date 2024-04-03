@@ -7,7 +7,7 @@ export type TransactionsDetails = {
 export type CardActivityRequest = {
   limit?: number;
   starting_after?: string;
-};
+} | void;
 
 export type CardActivity = {
   id: string;

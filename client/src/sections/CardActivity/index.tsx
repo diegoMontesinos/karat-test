@@ -1,6 +1,9 @@
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import AutoSizer from 'react-virtualized-auto-sizer';
+
+import ActivityList from '../../components/ActivityList';
 
 const CardActivity: React.FC = () => (
   <Box
@@ -21,7 +24,6 @@ const CardActivity: React.FC = () => (
       sx={{
         flex: 1,
         display: 'flex',
-        flexDirection: 'row',
         mt: 4,
       }}
     >
@@ -30,7 +32,13 @@ const CardActivity: React.FC = () => (
         sx={{
           flex: 1,
         }}
-      ></Paper>
+      >
+        <AutoSizer>
+          {({ height, width }) => (
+            <ActivityList width={width} height={height} />
+          )}
+        </AutoSizer>
+      </Paper>
     </Box>
   </Box>
 );
