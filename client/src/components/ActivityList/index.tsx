@@ -4,7 +4,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import ActivityListItem, { ACTIVITY_ITEM_HEIGHT } from './ActivityListItem';
+import CardActivityListItem, {
+  ACTIVITY_ITEM_HEIGHT,
+} from '../shared/CardActivityListItem';
 
 import { useLazyGetCardActivityQuery } from '../../api';
 
@@ -15,7 +17,7 @@ export interface ActivityListProps {
   height: number;
 }
 
-const PAGE_SIZE = 100;
+const PAGE_SIZE = 10;
 
 const ActivityList: React.FC<ActivityListProps> = ({ width, height }) => {
   const [activityList, setActivityList] = useState<CardActivity[]>([]);
@@ -65,8 +67,16 @@ const ActivityList: React.FC<ActivityListProps> = ({ width, height }) => {
       itemData={activityList}
     >
       {({ index, data, style }) => {
-        if (index < data.length)
-          return <ActivityListItem activity={data[index]} style={style} />;
+        if (index < data.length) {
+          const activity = data[index];
+          return (
+            <CardActivityListItem
+              key={activity.id}
+              activity={activity}
+              style={style}
+            />
+          );
+        }
 
         return (
           <Box

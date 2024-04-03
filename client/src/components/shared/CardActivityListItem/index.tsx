@@ -1,3 +1,4 @@
+import type { Theme, SxProps } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -6,25 +7,27 @@ import Typography from '@mui/material/Typography';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-import { CardActivity } from '../../types';
+import { CardActivity } from '../../../types';
 
-import { formatActivityDate, formatMoney } from '../../utils';
+import { formatActivityDate, formatMoney } from '../../../utils';
 
 export const ACTIVITY_ITEM_HEIGHT = 72;
 
-export interface ActivityListItemProps {
+export interface CardActivityListItemProps {
   activity: CardActivity;
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
+  sx?: SxProps<Theme>;
 }
 
-const ActivityListItem: React.FC<ActivityListItemProps> = ({
-  activity,
+const CardActivityListItem: React.FC<CardActivityListItemProps> = ({
+  activity: { amount, approved, merchant_data, created },
   style,
+  sx,
 }) => (
   <ListItem
-    key={activity.id}
-    divider
     style={style}
+    sx={sx}
+    divider
     secondaryAction={
       <Box
         sx={{
@@ -34,36 +37,35 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
           justifyContent: 'center',
         }}
       >
-        <Typography variant="subtitle1">
-          {formatMoney(activity.amount)}
-        </Typography>
+        <Typography variant="subtitle1">{formatMoney(amount)}</Typography>
         <Typography
           variant="caption"
-          color={activity.approved ? 'primary' : 'error'}
+          color={approved ? 'primary' : 'error'}
           sx={{ fontWeight: 600 }}
         >
-          {activity.approved ? 'Approved' : 'Declined'}
+          {approved ? 'Approved' : 'Declined'}
         </Typography>
       </Box>
     }
   >
     <ListItemIcon>
-      {activity.approved ? (
+      {approved ? (
         <CheckCircleIcon fontSize="large" color="primary" />
       ) : (
         <CancelIcon fontSize="large" color="error" />
       )}
     </ListItemIcon>
+
     <ListItemText
-      primary={activity.merchant_data.name}
+      primary={merchant_data.name}
       primaryTypographyProps={{
         sx: {
           fontWeight: 600,
         },
       }}
-      secondary={formatActivityDate(activity.created * 1000)}
+      secondary={formatActivityDate(created * 1000)}
     />
   </ListItem>
 );
 
-export default ActivityListItem;
+export default CardActivityListItem;
