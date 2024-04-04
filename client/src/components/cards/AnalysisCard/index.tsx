@@ -24,7 +24,7 @@ const AnalysisCard: React.FC<{
   );
 
   return (
-    <Card elevation={0}>
+    <Card elevation={0} aria-label="analysis-card">
       <CardHeader title="Analysis" />
       <CardContent>
         {isLoading ? (

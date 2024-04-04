@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import NodeCache from 'node-cache';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import helmet from 'helmet';
 
 import { getTransactionsDetails } from './transactions';
 
@@ -22,6 +23,7 @@ const cache = new NodeCache({ stdTTL: 15 * 60 });
 const DETAILS_CACHE_KEY = 'transaction-details';
 
 app.use(cors());
+app.use(helmet());
 
 app.get(
   '/transactions-details',
