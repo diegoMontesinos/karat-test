@@ -1,4 +1,3 @@
-import { Provider as StoreProvider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,8 +6,6 @@ import RootLayout from './RootLayout';
 
 import Home from './sections/Home';
 import CardActivity from './sections/CardActivity';
-
-import { store } from './store';
 
 const theme = createTheme({
   palette: {
@@ -52,12 +49,10 @@ const router = createBrowserRouter([
 ]);
 
 const App: React.FC = () => (
-  <StoreProvider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </ThemeProvider>
-  </StoreProvider>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <RouterProvider router={router} />
+  </ThemeProvider>
 );
 
 export default App;

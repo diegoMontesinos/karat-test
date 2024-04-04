@@ -4,11 +4,6 @@ export type TransactionsDetails = {
   categories: Record<string, number>;
 };
 
-export type CardActivityRequest = {
-  limit?: number;
-  starting_after?: string;
-} | void;
-
 export type CardActivity = {
   id: string;
   amount: number;

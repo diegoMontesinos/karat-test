@@ -6,12 +6,10 @@ import RecentActivitySkeleton from './RecentActivitySkeleton';
 
 import { Card, CardContent, CardHeader } from '../../shared/Card';
 
-import { useGetCardActivityQuery } from '../../../api';
+import { useCardActivity } from '../../../api';
 
 const CardActivityCard: React.FC = () => {
-  const { data, isLoading } = useGetCardActivityQuery({
-    limit: 10,
-  });
+  const { data: pages, isLoading } = useCardActivity();
 
   return (
     <Card elevation={0}>
@@ -33,7 +31,9 @@ const CardActivityCard: React.FC = () => {
 
       <CardContent sx={{ pt: 0 }}>
         {isLoading && <RecentActivitySkeleton />}
-        {data && <RecentActivityList data={data.data} />}
+        {pages && pages.length > 0 && (
+          <RecentActivityList data={pages[0].data} />
+        )}
       </CardContent>
     </Card>
   );

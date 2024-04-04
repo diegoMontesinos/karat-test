@@ -8,7 +8,7 @@ import CardActivityListItem, {
   ACTIVITY_ITEM_HEIGHT,
 } from '../shared/CardActivityListItem';
 
-import { useLazyGetCardActivityQuery } from '../../api';
+import { useCardActivity } from '../../api';
 
 import { CardActivity } from '../../types';
 
@@ -17,46 +17,28 @@ export interface ActivityListProps {
   height: number;
 }
 
-const PAGE_SIZE = 10;
-
 const ActivityList: React.FC<ActivityListProps> = ({ width, height }) => {
   const [activityList, setActivityList] = useState<CardActivity[]>([]);
   const [hasMore, setHasMore] = useState(true);
-  const [startingAfter, setStartingAfter] = useState<string | undefined>(
-    undefined
-  );
 
-  const [trigger, { data: response, isFetching }] =
-    useLazyGetCardActivityQuery();
+  const { data: pages, isValidating, size, setSize } = useCardActivity();
 
-  const loadMore = () => {
-    trigger({
-      limit: PAGE_SIZE,
-      starting_after: startingAfter,
-    });
-  };
+  const onClickSeeMore = () => setSize(size + 1);
 
   const itemCount = useMemo(
     () =>
-      isFetching || hasMore ? activityList.length + 1 : activityList.length,
-    [activityList.length, hasMore, isFetching]
+      isValidating || hasMore ? activityList.length + 1 : activityList.length,
+    [activityList.length, hasMore, isValidating]
   );
 
   useEffect(() => {
-    trigger({
-      limit: PAGE_SIZE,
-    });
-  }, [trigger]);
+    if (pages && pages.length > 0) {
+      const newPage = pages[pages.length - 1];
 
-  useEffect(() => {
-    if (response && !isFetching) {
-      const data = response.data;
-
-      setActivityList((prevData) => [...prevData, ...data]);
-      setHasMore(response.has_more);
-      setStartingAfter(data[data.length - 1].id);
+      setActivityList((prevData) => [...prevData, ...newPage.data]);
+      setHasMore(newPage.has_more);
     }
-  }, [isFetching, response]);
+  }, [pages]);
 
   return (
     <FixedSizeList
@@ -87,8 +69,10 @@ const ActivityList: React.FC<ActivityListProps> = ({ width, height }) => {
               alignItems: 'center',
             }}
           >
-            {isFetching && <CircularProgress />}
-            {!isFetching && <Button onClick={loadMore}>See more</Button>}
+            {isValidating && <CircularProgress />}
+            {!isValidating && (
+              <Button onClick={onClickSeeMore}>See more</Button>
+            )}
           </Box>
         );
       }}

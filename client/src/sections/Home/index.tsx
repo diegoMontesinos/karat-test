@@ -6,10 +6,10 @@ import AnalysisCard from '../../components/cards/AnalysisCard';
 import MetricsCard from '../../components/cards/MetricsCard';
 import RecentActivityCard from '../../components/cards/RecentActivityCard';
 
-import { useGetDetailsQuery } from '../../api';
+import { useTransactionsDetails } from '../../api';
 
 const Home: React.FC = () => {
-  const { data, isLoading } = useGetDetailsQuery();
+  const { data, isLoading } = useTransactionsDetails();
 
   return (
     <Box
