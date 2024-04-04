@@ -11,10 +11,12 @@ export default {
         astTransformers: {
           before: [
             {
-              path: '../node_modules/ts-jest-mock-import-meta',
+              path: 'node_modules/ts-jest-mock-import-meta',
               options: {
                 metaObjectReplacement: {
-                  VITE_API_HOST: 'http://localhost:3000/',
+                  env: {
+                    VITE_API_HOST: 'http://localhost:3000/',
+                  },
                 },
               },
             },
