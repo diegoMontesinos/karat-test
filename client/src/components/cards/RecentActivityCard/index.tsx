@@ -8,11 +8,11 @@ import { Card, CardContent, CardHeader } from '../../shared/Card';
 
 import { useCardActivity } from '../../../api';
 
-const CardActivityCard: React.FC = () => {
-  const { data: pages, isLoading } = useCardActivity();
+const RecentActivityCard: React.FC = () => {
+  const { data: pages, isValidating } = useCardActivity();
 
   return (
-    <Card elevation={0}>
+    <Card elevation={0} aria-label="recent-activity-card">
       <CardHeader
         title="Recent Activity"
         subheader="Showing last 10 registers"
@@ -30,7 +30,7 @@ const CardActivityCard: React.FC = () => {
       />
 
       <CardContent sx={{ pt: 0 }}>
-        {isLoading && <RecentActivitySkeleton />}
+        {isValidating && <RecentActivitySkeleton />}
         {pages && pages.length > 0 && (
           <RecentActivityList data={pages[0].data} />
         )}
@@ -39,4 +39,4 @@ const CardActivityCard: React.FC = () => {
   );
 };
 
-export default CardActivityCard;
+export default RecentActivityCard;

@@ -27,6 +27,7 @@ const ListItemNavLink: React.FC<ListItemNavLinkProps> = ({
       disableRipple
       component={Link}
       to={to}
+      aria-selected={isActive ? 'true' : 'false'}
       sx={{
         borderRadius: 2,
         backgroundColor: isActive ? 'rgba(255, 255, 255, 0.12)' : 'none',

@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import Box from '@mui/material/Box';
 import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
 import chroma from 'chroma-js';
 import { PieSectorDataItem } from 'recharts/types/polar/Pie';
@@ -115,27 +116,29 @@ const CategoriesChart: React.FC<{
   );
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
-        <Pie
-          data={data}
-          innerRadius={146}
-          outerRadius={180}
-          dataKey="value"
-          paddingAngle={0.1}
-          activeIndex={activeIndex}
-          onMouseEnter={onPieEnter}
-          activeShape={renderActiveShape}
-        >
-          {data.map((_, index) => (
-            <Cell
-              key={`cell-${index}`}
-              fill={palette[index % palette.length]}
-            />
-          ))}
-        </Pie>
-      </PieChart>
-    </ResponsiveContainer>
+    <Box sx={{ flex: 1 }} aria-label="categories-chart">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={data}
+            innerRadius={146}
+            outerRadius={180}
+            dataKey="value"
+            paddingAngle={0.1}
+            activeIndex={activeIndex}
+            onMouseEnter={onPieEnter}
+            activeShape={renderActiveShape}
+          >
+            {data.map((_, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={palette[index % palette.length]}
+              />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </Box>
   );
 };
 

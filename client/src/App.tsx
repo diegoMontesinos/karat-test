@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
@@ -31,27 +31,17 @@ const theme = createTheme({
   },
 });
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootLayout />,
-    children: [
-      {
-        path: '',
-        element: <Home />,
-      },
-      {
-        path: 'card-activity',
-        element: <CardActivity />,
-      },
-    ],
-  },
-]);
-
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RootLayout />}>
+          <Route path="" element={<Home />} />
+          <Route path="card-activity" element={<CardActivity />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </ThemeProvider>
 );
 

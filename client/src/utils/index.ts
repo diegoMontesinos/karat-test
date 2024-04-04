@@ -18,8 +18,8 @@ export const formatActivityDate = (time: number) => {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 };
 
-export const formatMoney = (value: number) => `$
-        ${value.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`;
+export const formatMoney = (value: number) =>
+  `$${value.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;

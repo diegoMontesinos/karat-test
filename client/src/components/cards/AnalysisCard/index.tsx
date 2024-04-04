@@ -36,7 +36,12 @@ const AnalysisCard: React.FC<{
               alignItems: 'center',
             }}
           >
-            <Skeleton variant="circular" width={300} height={300} />
+            <Skeleton
+              variant="circular"
+              width={300}
+              height={300}
+              role="progressbar"
+            />
           </Box>
         ) : (
           <CategoriesChart data={chartData} />

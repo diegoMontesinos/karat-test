@@ -26,7 +26,12 @@ const MetricsDataItem: React.FC<{
     }}
   >
     {isLoading ? (
-      <Skeleton variant="text" width={210} sx={{ fontSize: '2.125rem' }} />
+      <Skeleton
+        variant="text"
+        width={210}
+        sx={{ fontSize: '2.125rem' }}
+        role="progressbar"
+      />
     ) : (
       <Typography
         variant="h5"
@@ -46,7 +51,7 @@ const MetricsCard: React.FC<{
   };
   isLoading: boolean;
 }> = ({ data, isLoading }) => (
-  <Card elevation={0}>
+  <Card elevation={0} aria-label="metrics-card">
     <CardHeader title="Metrics" />
     <CardContent>
       <MetricsDataItem
