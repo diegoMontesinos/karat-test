@@ -92,7 +92,7 @@ This will prompt you something like:
 
 ### Other scripts
 
-This project is aimed to run locally, however there is a build a production ready project. Run:
+This project is aimed to run locally, however there is a way to build a production ready project. Run:
 
 ```sh
 yarn build
@@ -111,3 +111,62 @@ yarn format
 ```
 
 ## Front-end
+
+The project was generated with [Vite](https://vitejs.dev/). It uses React, `typescript` and the [Material UI library](https://mui.com/).
+We are using [swr](https://swr.vercel.app/) for the data fetching, and [recharts](https://recharts.org/en-US/) for generate a pie graph.
+
+The front-end is pretty straight forward. We have two routes, in the first one we display the information requested as cards. And in the other one we are using a cursor pagination for display the card activity.
+
+### Installation and setup locally
+
+1. Open a new terminal and execute the following commands:
+
+```sh
+cd client
+yarn install
+```
+
+2. Create an `.env` file inside the `client` directory:
+
+```sh
+touch .env
+```
+
+3. Open the `.env` files and fill with the right information:
+
+```properties
+# API host (change it if you use another port)
+VITE_API_HOST=http://localhost:3000/
+```
+
+4. Finally to start the client:
+
+```sh
+yarn dev
+```
+
+5. Open a browser in the following URL: http://localhost:5173/.
+
+### Testing
+
+We are using [Vitest](https://vitest.dev/) and the `react-testing-library` for testing.
+
+In order to run the tests, execute:
+
+```sh
+yarn test
+```
+
+_Note: We are not testing the back-end due is heavily based on the Stripe library that is well-tested._
+
+### Another scripts
+
+As well the server we have the scripts:
+
+```sh
+# For lint code
+yarn lint
+
+# For format code
+yarn format
+```
