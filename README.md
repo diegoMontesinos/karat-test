@@ -170,3 +170,35 @@ yarn lint
 # For format code
 yarn format
 ```
+
+## Design Questions
+
+> "How else might you have improved your solution given more time?"
+
+Add more testing coverages in the back-end and in the front-end. Make the dashboard responsive and have a better design.
+
+Organize better the code, maybe dockerize the solution and stablish some CI/CD scripts.
+
+Also make the project a monorepo.
+
+> "How might you have gone about further optimizing the load time of this view?"
+
+I think the loading time is reasonable, but maybe adding cache in the front-end. Or use SSR like Next.js.
+
+### Feedback and Calibration
+
+> "Approximately how many hours did you spend on this challenge?"
+
+I spent 4 days of full-work: 32 hours.
+
+> "What did you find most interesting / rewarding about this challenge?"
+
+I explore different ways to create a React project (like Vite). And also think about how to make the front-end efficient with a lot of transactions being displayed.
+
+I had never used Stripe before, but the documentation was good and easy to understand.
+
+> "What did you find least interesting / rewarding about this challenge?"
+
+I tried to setup (you can see in the commits) a Monorepo using Yarn workspaces to share the types and some libraries. But I failed to setup eslint and typescript.
+
+Also the testing setup in the front-end was a little bit hard and not very interesting.
